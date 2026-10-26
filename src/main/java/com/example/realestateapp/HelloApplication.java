@@ -1,8 +1,5 @@
 package com.example.realestateapp;
 
-import com.example.realestateapp.Apartment;
-import com.example.realestateapp.LandPlot;
-import com.example.realestateapp.RealEstate;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -15,14 +12,26 @@ import javafx.stage.Stage;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Главный класс JavaFX приложения для расчета стоимости недвижимости.
+ * Позволяет рассчитывать стоимость квартир и земельных участков с учетом их параметров.
+ *
+ * @author Зайцев Герман Петрович
+ * @version 1.0
+ */
 public class HelloApplication extends Application {
 
+    /** Область вывода результатов. */
     private TextArea outputArea;
 
+    /**
+     * Инициализирует и запускает графический интерфейс приложения.
+     *
+     * @param stage Главное окно.
+     */
     @Override
     public void start(Stage stage) {
         MenuBar menuBar = new MenuBar();
-
         Menu fileMenu = new Menu("Файл");
         MenuItem newCalcItem = new MenuItem("Новый расчет");
         MenuItem saveItem = new MenuItem("Сохранить");
@@ -132,6 +141,20 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+    /**
+     * Выполняет расчет стоимости недвижимости на основе введенных данных.
+     * Создает объект {@link Apartment} или {@link LandPlot} и выводит результат.
+     *
+     * @param type          Тип недвижимости ("Квартира" или "Земельный участок").
+     * @param address       Адрес объекта.
+     * @param areaStr       Площадь в виде строки.
+     * @param priceStr      Цена в виде строки.
+     * @param hasRenovation Наличие ремонта (для квартиры).
+     * @param yearStr       Год постройки в виде строки (для квартиры).
+     * @param floorStr      Этаж в виде строки (для квартиры).
+     * @param hasUtilities  Наличие коммуникаций (для участка).
+     * @param distanceStr   Удаленность от города в виде строки (для участка).
+     */
     private void performCalculation(String type, String address, String areaStr, String priceStr,
                                     boolean hasRenovation, String yearStr, String floorStr,
                                     boolean hasUtilities, String distanceStr) {
@@ -150,9 +173,8 @@ public class HelloApplication extends Application {
             }
 
             outputArea.appendText(realEstate.getInfo() + "\n");
-            outputArea.appendText("Стоимость за 1 кв.м: " + String.format("%.2f", realEstate.calculatePricePerSqM()) + "\n");
-            outputArea.appendText("----------------------------------------\n");
-
+            outputArea.appendText(String.format("Стоимость за 1 кв.м: %.2f\n", realEstate.calculatePricePerSqM()));
+            outputArea.appendText("--------------------------------\n");
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка ввода");
@@ -162,6 +184,9 @@ public class HelloApplication extends Application {
         }
     }
 
+    /**
+     * Сохраняет результаты расчетов в файл "calculation_result.txt".
+     */
     private void saveToFile() {
         try (FileWriter writer = new FileWriter("calculation_result.txt", true)) {
             writer.write(outputArea.getText());
@@ -175,6 +200,9 @@ public class HelloApplication extends Application {
         }
     }
 
+    /**
+     * Отображает диалоговое окно с информацией об авторе.
+     */
     private void showAboutDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("О программе");
@@ -183,6 +211,11 @@ public class HelloApplication extends Application {
         alert.showAndWait();
     }
 
+    /**
+     * Главный метод для запуска приложения.
+     *
+     * @param args Аргументы командной строки.
+     */
     public static void main(String[] args) {
         launch();
     }
