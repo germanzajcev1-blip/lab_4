@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"com.example.realestateapp","l":"Apartment"},{"p":"com.example.realestateapp","l":"HelloApplication"},{"p":"com.example.realestateapp","l":"LandPlot"},{"p":"com.example.realestateapp","l":"Launcher"},{"p":"com.example.realestateapp","l":"RealEstate"}];updateSearchResults();
